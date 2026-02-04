@@ -26,7 +26,7 @@ with st.sidebar:
     st.info("Status: Online 🟢")
 
 # 📍 API KEY (Fetch from Secrets for security)
-MY_API_KEY = st.secrets.get("GROQ_API_KEY", "YOUR_KEY_HERE")
+MY_API_KEY = st.secrets.get("GROQ_API_KEY", "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")
 
 # 4. Routing Logic
 if choice == "📄 CV Booster":
