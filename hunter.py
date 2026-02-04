@@ -46,7 +46,7 @@ with c2:
     country = st.selectbox("🌍 Coverage", ["Canada", "Germany", "France", "USA", "Spain"])
 
 # API KEY
-MY_API_KEY = "HNA_7ET_L_KEY_DYALK"
+MY_API_KEY = "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"
 
 if st.button("START SCAN 🔍"):
     if job_query and MY_API_KEY != "HNA_7ET_L_KEY_DYALK":
