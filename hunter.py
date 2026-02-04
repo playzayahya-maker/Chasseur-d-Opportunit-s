@@ -39,7 +39,7 @@ st.markdown("""
 MY_API_KEY = st.secrets.get("GROQ_API_KEY", "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")
 
 # Header
-st.markdown("<h1 style='text-align: center; color: #00FF9D;'>🕵️ L'MOKHBARE : OPPORTUNITY HUNTER</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: #00FF9D;'>🕵️ L'MOKHBIRE : OPPORTUNITY HUNTER</h1>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; color: #888;'>Deep Search: Germany, France, Spain, Canada, USA, UK, Italy...</p>", unsafe_allow_html=True)
 st.write("---")
 
