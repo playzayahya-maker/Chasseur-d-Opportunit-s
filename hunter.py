@@ -2,7 +2,7 @@ import streamlit as st
 from groq import Groq
 
 # 1. Configuration dyal l-page
-st.set_page_config(page_title="IKON PRO - L'MOKHBARE", layout="wide", page_icon="🕵️")
+st.set_page_config(page_title="OPPS HUNTER - L'MOKHBIRE", layout="wide", page_icon="🕵️")
 
 # 2. Design "Cyber Pro Max" (Custom CSS)
 st.markdown("""
