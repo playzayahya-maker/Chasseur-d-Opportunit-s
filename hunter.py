@@ -35,8 +35,8 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # 📍 API KEY SETUP
-# Ghadi i-jbedha mn Secrets dyal Streamlit Cloud
-MY_API_KEY = st.secrets.get("GROQ_API_KEY", "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")
+# Kat-jbedha mn Secrets dyal Streamlit Cloud (T-akked t-koune f dak l-box f settings)
+MY_API_KEY = st.secrets.get("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", "").strip()
 
 # Header
 st.markdown("<h1 style='text-align: center; color: #00FF9D;'>🕵️ L'MOKHBIRE : OPPORTUNITY HUNTER</h1>", unsafe_allow_html=True)
@@ -51,30 +51,39 @@ with col2:
     loc = st.selectbox("🌍 Choisir le Pays", ["Germany", "France", "Spain", "Italy", "Canada", "USA", "UK"])
 
 if st.button("LANCER LE DEEP SCAN 🔍"):
-    if job and MY_API_KEY != "YOUR_KEY_HERE":
-        client = Groq(api_key=MY_API_KEY)
-        with st.status("📡 Scan en cours dans les bases de données RH...", expanded=True):
-            # Prompt iħtirafi bach i-jbed l-emails dyal l-Directeurs
-            prompt = f"""
-            Act as a Professional Headhunter. Find 3 REAL companies currently hiring for {job} in {loc}. 
-            For each company, identify the most likely direct email format for the HR DIRECTOR or HIRING MANAGER.
-            Return ONLY this HTML format:
-            <div class='hunter-card'>
-                <h2 style='color: white; margin-bottom:5px;'>🏢 COMPANY NAME</h2>
-                <p style='color: #94A3B8;'>📍 Location: {loc} | Status: Recrutement Ouvert</p>
-                <div class='director-box'>
-                    <span class='label-red'>🎯 DIRECT ACCESS (DÉCIDEUR RH):</span>
-                    <span class='email-text'>name.surname@company.com</span>
+    # T-akkedna bli l-key kayna w machi khawya
+    if job and MY_API_KEY:
+        try:
+            client = Groq(api_key=MY_API_KEY)
+            with st.status("📡 Scan en cours dans les bases de données RH...", expanded=True):
+                prompt = f"""
+                Act as a Professional Headhunter. Find 3 REAL companies currently hiring for {job} in {loc}. 
+                For each company, identify the most likely direct email format for the HR DIRECTOR or HIRING MANAGER.
+                Return ONLY this HTML format:
+                <div class='hunter-card'>
+                    <h2 style='color: white; margin-bottom:5px;'>🏢 COMPANY NAME</h2>
+                    <p style='color: #94A3B8;'>📍 Location: {loc} | Status: Recrutement Ouvert</p>
+                    <div class='director-box'>
+                        <span class='label-red'>🎯 DIRECT ACCESS (DÉCIDEUR RH):</span>
+                        <span class='email-text'>name.surname@company.com</span>
+                    </div>
+                    <p style='color: #888; font-size: 11px; margin-top: 10px;'>Note: Envoyez votre CV directement à ce contact pour maximiser vos chances.</p>
                 </div>
-                <p style='color: #888; font-size: 11px; margin-top: 10px;'>Note: Envoyez votre CV directement à ce contact pour maximiser vos chances.</p>
-            </div>
-            """
-            res = client.chat.completions.create(model="llama-3.3-70b-versatile", messages=[{"role": "user", "content": prompt}])
-            st.session_state['hunt_res'] = res.choices[0].message.content
+                """
+                res = client.chat.completions.create(
+                    model="llama-3.3-70b-versatile", 
+                    messages=[{"role": "user", "content": prompt}]
+                )
+                st.session_state['hunt_res'] = res.choices[0].message.content
+        except Exception as e:
+            st.error(f"❌ Error: {e}")
     else:
-        st.warning("⚠️ 3emmer l-metier w t-7eqqeq men l-API Key f Secrets.")
+        st.warning("⚠️ 3emmer l-metier w t-7eqqeq men l-API Key f Secrets (GROQ_API_KEY).")
 
 # 4. Results
+if 'hunt_res' in st.session_state:
+    st.markdown("### 🏢 RÉSULTATS DU SCAN MOKHBARE")
+    st.markdown(st.session_state['hunt_res'], unsafe_allow_html=True)
 if 'hunt_res' in st.session_state:
     st.markdown("### 🏢 RÉSULTATS DU SCAN MOKHBARE")
     st.markdown(st.session_state['hunt_res'], unsafe_allow_html=True)
