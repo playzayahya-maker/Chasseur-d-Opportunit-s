@@ -36,7 +36,7 @@ st.markdown("""
 
 # 📍 API KEY SETUP
 # Ghadi i-jbedha mn Secrets dyal Streamlit Cloud
-MY_API_KEY = st.secrets.get("GROQ_API_KEY", "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")
+MY_API_KEY = st.secrets.get("GROQ_API_KEY", "AIzaSyBUpOZ7lUxX6kLTkfHvAIG4Etll6LTj-_k")
 
 # Header
 st.markdown("<h1 style='text-align: center; color: #00FF9D;'>🕵️ L'MOKHBIRE : OPPORTUNITY HUNTER</h1>", unsafe_allow_html=True)
