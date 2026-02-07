@@ -34,14 +34,15 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# 📍 API KEY SETUP
-# Kat-jbedha mn Secrets dyal Streamlit Cloud (T-akked t-koune f dak l-box f settings)
-MY_API_KEY = st.secrets.get("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", "").strip()
+# 📍 API KEY SETUP (Smart Cleaning)
+raw_key = st.secrets.get("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", "")
 
-# Header
-st.markdown("<h1 style='text-align: center; color: #00FF9D;'>🕵️ L'MOKHBIRE : OPPORTUNITY HUNTER</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #888;'>Deep Search: Germany, France, Spain, Canada, USA, UK, Italy...</p>", unsafe_allow_html=True)
-st.write("---")
+# Had l-ster ghadi i-lssaq l-key wakha tkon m9souma f sstora
+MY_API_KEY = "".join(raw_key.split()) 
+
+# Test sghir i-ban ghir lik bach t-akked
+if not MY_API_KEY:
+    st.sidebar.error("❌ API Key is missing in Secrets!")
 
 # 3. Search Inputs
 col1, col2 = st.columns([2, 1])
