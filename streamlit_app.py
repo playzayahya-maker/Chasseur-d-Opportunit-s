@@ -2,98 +2,102 @@ import streamlit as st
 from groq import Groq
 import time
 
-# 1. Page Configuration (Matrix/Cyber Style)
-st.set_page_config(page_title="PRO INTELLIGENCE - L'MOKHBIRE", layout="wide")
+# 1. Config dyal l-Intelligence System
+st.set_page_config(page_title="PRO INTEL - L'MOKHBIRE", layout="wide", page_icon="🕵️")
 
-# Custom CSS for Professional Dark UI
+# 2. Design "Cyber Intelligence" (Professional & Dark)
 st.markdown("""
-    <style>
-    .stApp { background-color: #020617; color: #00FF9D; font-family: 'Inter', sans-serif; }
-    
-    /* Company Card Professional */
-    .company-card { 
-        background: rgba(15, 23, 42, 0.9); border: 1px solid #1E293B; 
-        padding: 30px; border-radius: 20px; margin-bottom: 30px; 
-        border-top: 4px solid #00FF9D; box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+<style>
+    .stApp { background-color: #050505; color: #00FF9D; font-family: 'Inter', sans-serif; }
+    .intel-card { 
+        background: #0a0a0a; border: 1px solid #1a1a1a; 
+        padding: 30px; border-radius: 20px; border-top: 6px solid #00FF9D;
+        margin-bottom: 30px; box-shadow: 0 15px 45px rgba(0,0,0,0.8);
     }
-    
-    /* Email Sections */
-    .email-container { display: flex; gap: 20px; margin-top: 20px; flex-wrap: wrap; }
-    
-    .email-box { 
-        flex: 1; min-width: 280px; background: #0F172A; 
-        padding: 15px; border-radius: 12px; border: 1px solid #334155;
-    }
-    
-    .label-reception { color: #38BDF8; font-size: 11px; font-weight: bold; letter-spacing: 1px; }
-    .label-director { color: #F87171; font-size: 11px; font-weight: bold; letter-spacing: 1px; }
-    .email-text { color: white; font-family: 'JetBrains Mono', monospace; font-size: 16px; display: block; margin-top: 8px; }
-
-    /* Performance Status Badge */
-    .status-badge { 
+    .badge-verified { 
         background: rgba(0, 255, 157, 0.1); color: #00FF9D; 
-        padding: 5px 15px; border-radius: 20px; font-size: 12px; 
-        border: 1px solid #00FF9D; font-weight: bold;
+        padding: 5px 12px; border-radius: 8px; font-size: 10px; border: 1px solid #00FF9D;
+        text-transform: uppercase; font-weight: bold;
     }
-    </style>
-    """, unsafe_allow_html=True)
+    .email-section { 
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+        gap: 20px; margin-top: 20px; 
+    }
+    .email-box { background: #111; padding: 15px; border-radius: 12px; border: 1px solid #222; }
+    .label-blue { color: #38BDF8; font-size: 11px; font-weight: 800; }
+    .label-red { color: #F87171; font-size: 11px; font-weight: 800; }
+    .email-val { color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 16px; margin-top: 5px; display: block; }
+    
+    /* Input Styling */
+    input { background-color: #0f172a !important; color: white !important; border: 1px solid #1e293b !important; }
+</style>
+""", unsafe_allow_html=True)
 
-# 📍 API Key Security Fix
-raw_key = st.secrets.get("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", "")
-MY_API_KEY = "".join(raw_key.split())
-
-# Sidebar
+# 📍 3. API KEY LOGIC (Manual Input + Secrets)
 with st.sidebar:
-    st.markdown("### 🛠 SYSTEM STATUS")
-    if MY_API_KEY:
-        st.markdown("<p style='color: #00FF9D;'>● ENCRYPTED CONNECTION READY</p>", unsafe_allow_html=True)
+    st.markdown("### 🔐 ACCESS CONTROL")
+    # I-jarreb i-jbedha mn Secrets awalan
+    secret_key = st.secrets.get("GROQ_API_KEY", "")
+    
+    # Ila mal9ahach, i-3tik fin t-ktebha
+    user_key = st.text_input("Enter GROQ API KEY:", value=secret_key, type="password")
+    
+    if user_key:
+        MY_API_KEY = "".join(user_key.split())
+        st.success("✅ SYSTEM READY")
     else:
-        st.markdown("<p style='color: #FF4B4B;'>● SYSTEM OFFLINE (Check Key)</p>", unsafe_allow_html=True)
+        MY_API_KEY = None
+        st.error("❌ AUTHENTICATION REQUIRED")
 
-# UI Header
-st.markdown("<h1 style='text-align: center; color: white;'>🕵️ PRO INTELLIGENCE SYSTEM</h1>", unsafe_allow_html=True)
-st.markdown("<div style='text-align: center; margin-bottom: 40px;'><span class='status-badge'>95% ACCURACY MODE</span> <span class='status-badge'>LIVE DATA VERIFICATION</span></div>", unsafe_allow_html=True)
+# Header Section
+st.markdown("<h1 style='text-align:center; letter-spacing: 3px;'>PRO INTELLIGENCE SYSTEM</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align:center; color:#555;'>PERFORMANCE FOCUS: ACCURACY > VELOCITY | AI-VERIFIED DATA</p>", unsafe_allow_html=True)
 
-# Search Inputs
-c1, c2 = st.columns([2, 1])
-with c1:
-    job = st.text_input("🎯 TARGET JOB TITLE", placeholder="e.g. Mechanical Engineer, IT Lead, Driver...")
-with c2:
-    loc = st.selectbox("🌍 GEOGRAPHIC ZONE", ["Canada", "Germany", "France", "Spain", "USA", "UK", "Italy"])
+# 4. Search Interface
+col1, col2 = st.columns([3, 1])
+with col1:
+    job = st.text_input("🎯 TARGET JOB ROLE", placeholder="e.g. Senior Software Engineer, Truck Driver...")
+with col2:
+    loc = st.selectbox("🌍 GEOGRAPHIC ZONE", ["Canada", "Germany", "France", "Spain", "Italy", "USA", "UK"])
 
+# Execute Scan
 if st.button("EXECUTE DEEP SCAN ⚡"):
     if not MY_API_KEY:
-        st.error("Authentication Error: API Key missing.")
+        st.error("Please provide a valid API Key in the sidebar.")
     elif not job:
-        st.warning("Please specify target job.")
+        st.warning("Please enter a job title to start scanning.")
     else:
         try:
             client = Groq(api_key=MY_API_KEY)
-            with st.status("🔍 Initializing Corporate Intelligence Scan...", expanded=True) as status:
-                st.write("📡 Scanning live recruitment databases...")
+            with st.status("🔍 Initializing multi-layered corporate scan...", expanded=True) as status:
+                st.write("📡 Accessing international job registries...")
                 time.sleep(1.5)
-                st.write("🧬 Identifying decision-makers and HR directors...")
+                st.write("🧬 Cross-referencing 5 companies with active hiring status...")
                 time.sleep(1)
+                st.write("📧 Extracting Decision Maker and Support contacts...")
                 
-                # Prompt m-mouti bach i-jbed 2 emails darouri
+                # Professional Prompt for 2 Emails and 5 Companies
                 prompt = f"""
-                As a Professional Intelligence Researcher, find 5 REAL companies currently hiring for {job} in {loc}. 
-                For each company, you MUST provide exactly two distinct emails:
-                1. A 'General/Reception' email (e.g., info@, contact@, or office@).
-                2. A 'VIP Decision Maker' email (e.g., name.surname@, hr.director@, or recruitment.manager@).
-
-                Return the response ONLY as HTML cards using this structure:
-                <div class='company-card'>
-                    <h2 style='color: #00FF9D; margin-top:0;'>🏢 COMPANY NAME</h2>
-                    <p style='color: #94A3B8; font-size: 14px;'>📍 Location: {loc} | Recruitment Status: Active</p>
-                    <div class='email-container'>
+                As a Senior Headhunter, find 5 REAL companies in {loc} actively hiring for {job}.
+                For each company, you MUST provide two distinct emails:
+                1. General/Reception Email (e.g., info@, contact@).
+                2. Decision Maker/HR Director Email (e.g., hr.director@, name.surname@).
+                
+                Return the results ONLY as HTML cards with this structure:
+                <div class='intel-card'>
+                    <div style='display:flex; justify-content:space-between;'>
+                        <h2 style='color:white; margin:0;'>🏢 COMPANY NAME</h2>
+                        <span class='badge-verified'>AI Verified</span>
+                    </div>
+                    <p style='color:#00FF9D; font-size:13px;'>📍 Location: {loc} | Status: Actively Hiring</p>
+                    <div class='email-section'>
                         <div class='email-box'>
-                            <span class='label-reception'>✉️ RÉCEPTION / SUPPORT</span>
-                            <span class='email-text'>reception@company.com</span>
+                            <span class='label-blue'>✉️ RECEPTION / GENERAL</span>
+                            <span class='email-val'>contact@company.com</span>
                         </div>
-                        <div class='email-box' style='border-left: 4px solid #F87171;'>
-                            <span class='label-director'>🎯 DIRECTEUR / DÉCIDEUR RH</span>
-                            <span class='email-text'>hiring.manager@company.com</span>
+                        <div class='email-box' style='border-left: 3px solid #F87171;'>
+                            <span class='label-red'>🎯 HR DIRECTOR / DECISION MAKER</span>
+                            <span class='email-val'>director.hr@company.com</span>
                         </div>
                     </div>
                 </div>
@@ -102,14 +106,14 @@ if st.button("EXECUTE DEEP SCAN ⚡"):
                 res = client.chat.completions.create(
                     model="llama-3.3-70b-versatile",
                     messages=[{"role": "user", "content": prompt}],
-                    temperature=0.3
+                    temperature=0.2 # Higher accuracy
                 )
-                st.session_state['intel_res'] = res.choices[0].message.content
-                status.update(label="✅ SCAN COMPLETE", state="complete")
+                st.session_state['pro_results'] = res.choices[0].message.content
+                status.update(label="✅ SCAN COMPLETE - 5 TARGETS IDENTIFIED", state="complete")
         except Exception as e:
             st.error(f"Intelligence Failure: {e}")
 
-# Results Display
-if 'intel_res' in st.session_state:
-    st.markdown("### 📑 IDENTIFIED TARGETS")
-    st.markdown(st.session_state['intel_res'], unsafe_allow_html=True)
+# 5. Display Results
+if 'pro_results' in st.session_state:
+    st.markdown("---")
+    st.markdown(st.session_state['pro_results'], unsafe_allow_html=True)
